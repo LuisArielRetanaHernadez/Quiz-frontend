@@ -3,25 +3,29 @@
 :root {
   /* font-family */
   --font-rubik: 'Rubik', sans-serif;
-  --font-Ubuntu: 'Ubuntu', sans-serif;
+  --font-ubuntu: 'Ubuntu', sans-serif;
 
   /* colors */
   --orange-scondary: #F94C10;
   --white: #FFFF;
-  --black: #0000;
+  --black: #000000;
   --blue-scondary: #4477CE;
   --red: #C70039;
+  --gray-scondary: #61677A; 
 
   /* font-size */
   --title: 10rem;
-  --title-scondaru: 8rem;
+  --title-scondaru: 3rem;
   --text: 1rem;
+  --text-midum: 1.5rem;
+  --text-midum-l: 2rem;
 
   /* backgorund */
   --bg-orange: #F94C10;
   --bg-red-scondary: #C70039;
   --bg-blue-scondary: #4477CE;
   --bg-white: #FFFF;
+  --bg-gray-scondary: #61677A; 
 }
 
 body {
@@ -30,7 +34,8 @@ body {
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
-  background-color: blue;
+  /* background-color: blue; */
+  font-family: 'Rubik';
 }
 
 * {
@@ -39,7 +44,42 @@ body {
 }
 
 #root {
-  background-color: chocolate;
+  /* background-color: chocolate; */
   width: 100%;
   min-height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title--scondary {
+  font-size: var(--title-scondaru);
+  font-family: var(--font-ubuntu);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+/* utils */
+
+.border-box {
+  box-sizing: border-box;
+}
+
+/* margin */
+
+.m-0-5em {
+  margin: 0.5em;
+}
+
+/* width */
+
+.w-100 {
+  width: 100%;
 }
