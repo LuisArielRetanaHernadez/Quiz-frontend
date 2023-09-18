@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 
 import '../styles/views/Menu.css'
+
 const Menu = () => {
   return (
     <section className='container-menu'>
