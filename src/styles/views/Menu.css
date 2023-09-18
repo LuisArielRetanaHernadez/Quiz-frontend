@@ -1,7 +1,12 @@
 .container-menu {
   width: 100%;
   height: 100vh;
-  background-color: red;
+  /* background-color: red; */
+}
+
+.layout-menu {
+  height: calc(100vh - 8%);
+  /* background-color: violet; */
 }
 
 .nav {
@@ -32,8 +37,4 @@
   font-family: var(--font-rubik);
   text-decoration: none;
   color: var(--blue-scondary);
-}
-
-.layout-menu {
-  background-color: violet;
 }
