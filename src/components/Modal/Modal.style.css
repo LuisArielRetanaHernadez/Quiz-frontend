@@ -1,0 +1,42 @@
+.modal__default {
+  min-width: 350px;
+  padding: 1em;
+  border: 1px solid var(--bg-orange);
+  position: absolute;
+  top: -50%;
+  z-index: 10;
+  transition: all .3s;
+  animation: hiddenDefault .5s forwards;
+}
+@keyframes hiddenDefault {
+  from {
+    top: 10%;
+  }
+
+  to {
+    top: -90%;
+  }
+}
+.modal__default h3 {
+  color: var(--red);
+  letter-spacing: 1px;
+}
+.modal__default p {
+  margin-top: 1em;
+}
+
+.modal__default--active {
+  top: 10%;
+  transition: all .3s;
+  animation: showDefault .5s forwards;
+}
+
+@keyframes showDefault {
+  from {
+    top: -90%;
+  }
+
+  to {
+    top: 10%;
+  }
+}
