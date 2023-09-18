@@ -5,7 +5,7 @@ import authService from '../../utils/auth'
 const initialState = {
   token: '',
   name: '',
-  isLogin: '',
+  isLogin: false,
   id: ''
 }
 
