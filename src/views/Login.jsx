@@ -1,10 +1,22 @@
 import { useForm } from 'react-hook-form'
 
-import Input from '../components/Input/Input'
-
 import '../styles/views/Login.css'
+
+// components
+import Input from '../components/Input/Input'
 import Label from '../components/Label/Label'
-import { Link } from 'react-router-dom'
+
+// router-dom
+import { Link, useNavigate } from 'react-router-dom'
+
+// redux
+import { useDispatch } from 'react-redux'
+
+import {
+  loginAsync
+} from '../features/users/usersSlice'
+import { useState } from 'react'
+import Modal from '../components/Modal/Modal'
 
 const fieldsForm = [
   {
@@ -18,7 +30,7 @@ const fieldsForm = [
       required: true
     },
     label: {
-      value: 'Correo',
+      value: 'Contraseña',
       className: 'login__label'
     }
   },
@@ -33,13 +45,16 @@ const fieldsForm = [
       required: true
     },
     label: {
-      value: 'Contraseña',
+      value: 'Correo',
       className: 'login__label'
     }
   }
 ]
 
 const Login = () => {
+  const [error, setError] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const fields = fieldsForm.map((field, index) => (
@@ -61,14 +76,31 @@ const Login = () => {
     </div>
   ))
 
+  const onSubmit = async (data) => {
+    dispatch(loginAsync(data)).unwrap()
+      .then(result => {
+        navigate('/Init')
+      })
+      .catch(() => {
+        setError(true)
+      })
+  }
+
   return (
     <section className='container container--center'>
-
+      {error && <Modal
+        title='Usuario no identificado'
+        texts='Lo sentimos, nos hemos hemos encontrado un usuario con esas crendenciales'
+        error={error}
+        className='modal__default'
+        active='modal__default--active'
+        setError={setError}
+                />}
       <div className='login login--transparent'>
 
         <h2 className='title--scondary'>Iniciar Seccion</h2>
 
-        <form className='login__box border-box' onSubmit={handleSubmit()}>
+        <form className='login__box border-box' onSubmit={handleSubmit(onSubmit)}>
 
           {fields}
 
