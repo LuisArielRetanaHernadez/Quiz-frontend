@@ -1,8 +1,10 @@
 import { Link, Outlet } from 'react-router-dom'
 
 import '../styles/views/Menu.css'
+import { useSelector } from 'react-redux'
 
 const Menu = () => {
+  const isLogin = useSelector(state => state.users.isLogin)
   return (
     <section className='container-menu'>
 
@@ -17,12 +19,15 @@ const Menu = () => {
           <li className='nav__item'>
             <Link to='/Create'>Crear</Link>
           </li>
-          <li className='nav__item'>
-            <Link to='/Account'>Cuenta</Link>
-          </li>
-          <li className='nav__item'>
-            <Link to='/Login'>Login</Link>
-          </li>
+          {
+            isLogin
+              ? <li className='nav__item'>
+                <Link to='/Account'>Cuenta</Link>
+              </li>
+              : <li className='nav__item'>
+                <Link to='/Login'>Login</Link>
+              </li>
+          }
         </ul>
       </nav>
 
