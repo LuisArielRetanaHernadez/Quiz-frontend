@@ -4,6 +4,9 @@ const login = ({ email, password }) => {
   return Axios.post('users/login', {
     email,
     password
+  }).then(response => {
+    localStorage.setItem('token', JSON.stringify(response.data.token))
+    return response
   })
 }
 
