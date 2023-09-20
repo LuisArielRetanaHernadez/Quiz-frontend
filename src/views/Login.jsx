@@ -5,18 +5,21 @@ import '../styles/views/Login.css'
 // components
 import Input from '../components/Input/Input'
 import Label from '../components/Label/Label'
+import Modal from '../components/Modal/Modal'
 
 // router-dom
 import { Link, useNavigate } from 'react-router-dom'
 
 // redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
-  loginAsync
+  loginAsync,
+  logout
 } from '../features/users/usersSlice'
-import { useState } from 'react'
-import Modal from '../components/Modal/Modal'
+
+// react
+import { useEffect, useState } from 'react'
 
 const fieldsForm = [
   {
@@ -53,8 +56,12 @@ const fieldsForm = [
 
 const Login = () => {
   const [error, setError] = useState(false)
+
   const dispatch = useDispatch()
+  const isLogin = useSelector(state => state.users.isLogin)
+
   const navigate = useNavigate()
+
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const fields = fieldsForm.map((field, index) => (
@@ -85,6 +92,14 @@ const Login = () => {
         setError(true)
       })
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+
+    if (!token && isLogin) {
+      dispatch(logout())
+    }
+  }, [])
 
   return (
     <section className='container container--center'>
