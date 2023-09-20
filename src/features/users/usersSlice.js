@@ -3,8 +3,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import authService from '../../utils/auth'
 
 const initialState = {
-  token: '',
-  name: '',
   isLogin: false,
   id: ''
 }
@@ -39,8 +37,6 @@ const usersSlice = createSlice({
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.id = action.payload.user._id
         state.isLogin = true
-        state.name = action.payload.user.name
-        state.token = action.payload.token
         state.status = 'success'
       })
   }
