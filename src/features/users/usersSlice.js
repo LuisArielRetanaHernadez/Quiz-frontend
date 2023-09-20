@@ -4,7 +4,7 @@ import authService from '../../utils/auth'
 
 const initialState = {
   isLogin: false,
-  id: ''
+  id: null
 }
 
 export const loginAsync = createAsyncThunk(
@@ -23,6 +23,10 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    logout: (state) => {
+      state.id = null
+      state.isLogin = false
+    }
   },
 
   extraReducers: (builder) => {
@@ -41,5 +45,9 @@ const usersSlice = createSlice({
       })
   }
 })
+
+export const {
+  logout
+} = usersSlice.actions
 
 export default usersSlice.reducer
