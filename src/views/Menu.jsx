@@ -17,7 +17,7 @@ const Menu = () => {
             <Link to='/Quiz'>Mis Quiz</Link>
           </li>
           <li className='nav__item'>
-            <Link to='/Create'>Crear</Link>
+            <Link to='Quiz/Create'>Crear</Link>
           </li>
           {
             isLogin
