@@ -17,7 +17,7 @@ import Quizs from './views/Quizs.jsx'
 import Account from './views/Account.jsx'
 import ErrrorView from './views/ErrorView'
 import Login from './views/Login'
-import NewQuizs from './views/NewQuizs'
+import NewRoom from './views/NewRoom'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'Quiz/Create',
-        element: <NewQuizs />
+        element: <NewRoom />
       },
       {
         path: 'Account',
