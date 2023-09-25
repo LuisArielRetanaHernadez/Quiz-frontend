@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import Input from '../components/Input/Input'
 import Label from '../components/Label/Label'
 import { createRoom } from '../utils/createRoom'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const fieldsForm = [
@@ -96,24 +96,26 @@ const NewQuizs = () => {
     const response = await createRoom(data)
     if (response.status === 201) {
       const id = response.data.data.room._id
-      return <Navigate to={`room/${id}/quiz/create`} />
+      return <Navigate to={`/${id}`} />
     }
-    console.log(response)
   }
 
   return (
     <section>
-      <h2>Create Quiz</h2>
+      <h2>Crear Sala</h2>
 
       <div className='login login--transparent'>
         <form onSubmit={handleSubmit(onSubmit)}>
           {fields}
           <div className='login__button'>
-            <button type='submit' className='button'>Crear</button>
+            <button type='submit' className='button'>Crear sala</button>
+            <button type='submit' className='button'>Añadir preguntas</button>
           </div>
         </form>
       </div>
-
+      <div>
+        <Outlet />
+      </div>
     </section>
   )
 }
