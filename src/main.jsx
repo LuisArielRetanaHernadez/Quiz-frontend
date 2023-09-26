@@ -18,6 +18,7 @@ import Account from './views/Account.jsx'
 import ErrrorView from './views/ErrorView'
 import Login from './views/Login'
 import NewRoom from './views/NewRoom'
+import NewQuiz from './views/NewQuiz'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'Quiz/Create',
-        element: <NewRoom />
+        element: <NewRoom />,
+        children: [
+          {
+            path: ':id',
+            element: <NewQuiz />
+          }
+        ]
       },
       {
         path: 'Account',
@@ -51,11 +58,11 @@ const router = createBrowserRouter([
 
 const persistor = persistStore(store)
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <PersistGate persistor={persistor}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </PersistGate>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <PersistGate persistor={persistor}>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </PersistGate>
+  // </React.StrictMode>
 )
