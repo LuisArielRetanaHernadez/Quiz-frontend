@@ -1,10 +1,15 @@
+// react-hook-form
 import { useForm } from 'react-hook-form'
+// components
 import Input from '../components/Input/Input'
+import Modal from '../components/Modal/Modal'
 import Label from '../components/Label/Label'
+// utils
 import { createRoom } from '../utils/createRoom'
+// react-router-dom
 import { Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Modal from '../components/Modal/Modal'
+// react
 import { useState } from 'react'
 
 const fieldsForm = [
@@ -71,12 +76,21 @@ const fieldsForm = [
 ]
 
 const NewRoom = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
   const [error, setError] = useState(true)
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const isLogin = useSelector(state => state.users.isLogin)
 
   if (!isLogin) {
     return <Navigate to='/Login' />
+  }
+
+  const modalInformation = {
+    title: '',
+    texts: '',
+    className: '',
+    active: '',
+    error: '',
+    setError: ''
   }
 
   const fields = fieldsForm.map((field, index) => (
@@ -93,17 +107,10 @@ const NewRoom = () => {
       {errors[field.input.name] && <span>Error Field</span>}
     </div>
   ))
-  const modalInformation = {
-    title: '',
-    texts: '',
-    className: '',
-    active: '',
-    error: '',
-    setError: ''
-  }
+
   const onSubmit = async data => {
     const response = await createRoom(data)
-    console.log(response)
+
     if (response.status === 201) {
       const id = response.data.data.room._id
       return <Navigate to={`/${id}`} />
