@@ -4,6 +4,8 @@ import Label from '../components/Label/Label'
 import { createRoom } from '../utils/createRoom'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Modal from '../components/Modal/Modal'
+import { useState } from 'react'
 
 const fieldsForm = [
   {
@@ -14,7 +16,7 @@ const fieldsForm = [
       className: 'input__default'
     },
     rules: {
-      required: true
+      required: false
     },
     label: {
       label: 'Titulo',
@@ -68,9 +70,9 @@ const fieldsForm = [
   }
 ]
 
-const NewQuizs = () => {
+const NewRoom = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-
+  const [error, setError] = useState(true)
   const isLogin = useSelector(state => state.users.isLogin)
 
   if (!isLogin) {
@@ -91,19 +93,39 @@ const NewQuizs = () => {
       {errors[field.input.name] && <span>Error Field</span>}
     </div>
   ))
-
+  const modalInformation = {
+    title: '',
+    texts: '',
+    className: '',
+    active: '',
+    error: '',
+    setError: ''
+  }
   const onSubmit = async data => {
     const response = await createRoom(data)
+    console.log(response)
     if (response.status === 201) {
       const id = response.data.data.room._id
       return <Navigate to={`/${id}`} />
+    }
+    if (response.status.startWith('4')) {
+      setError(false)
+      modalInformation.title = 'error al crear la sala'
+      modalInformation.texts = 'Tu sala no se pudo crear con exito vuele a intentar'
+      modalInformation.error = error
+      modalInformation.setError = setError
     }
   }
 
   return (
     <section>
       <h2>Crear Sala</h2>
-
+      {error ?? <Modal
+        title={modalInformation.title}
+        texts={modalInformation.texts}
+        error={modalInformation.error}
+        setError={modalInformation.setError}
+                />}
       <div className='login login--transparent'>
         <form onSubmit={handleSubmit(onSubmit)}>
           {fields}
@@ -120,4 +142,4 @@ const NewQuizs = () => {
   )
 }
 
-export default NewQuizs
+export default NewRoom
