@@ -6,6 +6,10 @@ import './Modal.style.css'
 const Modal = ({ title, texts, className, active, error, setError }) => {
   const mobal = useRef(null)
 
+  if (!active) {
+    active = 'moda_default--active'
+  }
+
   useEffect(() => {
     if (error) {
       mobal.current.classList.add(active)
@@ -18,7 +22,7 @@ const Modal = ({ title, texts, className, active, error, setError }) => {
   }
 
   return (
-    <div className={className} ref={mobal} onClick={hiddenMobal}>
+    <div className={className ?? 'modal_default'} ref={mobal} onClick={hiddenMobal}>
       <h3>{title}</h3>
       <p>
         {texts}
